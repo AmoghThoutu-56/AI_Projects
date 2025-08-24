@@ -25,6 +25,10 @@ function InputBox({ onSend }) {
 
         // Resets the input state to an empty string after sending the message
         setInput("");
+
+        // Resets the height of the textarea to min-height
+        const textarea = document.querySelector('.input-box textarea');
+        if (textarea) textarea.style.height = "5rem";
     };
 
     // renders the input box
@@ -37,6 +41,11 @@ function InputBox({ onSend }) {
                 value = {input}
                 // onChange updates the state as the user types
                 onChange = {(e) => setInput (e.target.value)}
+                // auto-resize the textarea based on content
+                onInput={(e) => {
+                    e.target.style.height = "auto"; // Reset height
+                    e.target.style.height = `${e.target.scrollHeight}px`; // Set to scrollHeight
+                }}
                 placeholder = "Ask me anything..."
             />
             {/* Submit button to send the message */}

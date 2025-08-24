@@ -1,4 +1,4 @@
-import { useState } from 'react' // Importing React's useState hook to manage state in the component
+import { useEffect, useState } from 'react' // Importing React's useState hook to manage state in the component
 import ChatWindow from "./components/ChatWindow"; //a component to display chat messages
 import InputBox from "./components/InputBox";     //a component to input user messages
 import "./styles.css";
@@ -31,6 +31,7 @@ function App() {
 
   };
   
+  
   // renders the chatbot UI
   // Displays the chat window and input box
   // CHatWindow recieves messages as props
@@ -38,8 +39,10 @@ function App() {
   return (
     <div className="app">
       <h2>LLM Performance Tracker</h2>
-      <ChatWindow messages={messages} />
-      <InputBox onSend={handleSend} />
+      <div className="chat_container">
+        <ChatWindow messages={messages} />
+        <InputBox onSend={handleSend} />
+      </div>
     </div>
   );
 
