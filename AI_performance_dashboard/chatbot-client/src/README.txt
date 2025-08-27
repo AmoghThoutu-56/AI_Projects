@@ -21,7 +21,7 @@ from the Gemini API, via the middleware. The current version is designed to run 
 
 # File 'App.jsx'
 
-'App.jsx' is the main componenet of the chatbot UI. It manages the overall structure, message state, and message flow 
+'App.jsx' is the main component of the chatbot UI. It manages the overall structure, message state, and message flow 
 between the user and the bot.
 
 Component Structure:
@@ -43,10 +43,13 @@ Features:
 'ChatWindow.jsx' is responsible for rendering all chat messages in a scrollable container.
 
  Message object structure:
-
 - role: either "user" or "bot"
 - content: text of the message
 
+
+Implemented a button to scroll to the bottom of the chat messages
+- the chatwindow is structured in such a way that the scroll button is contained in the chatwindow but doesn't scroll
+  with the messages
  
 # File 'InputBox.jsx'
 
@@ -54,17 +57,25 @@ Features:
  
 Features:
 
-- Takes the user input and calls the callback prop "OnSend"
+- Takes the user input and calls the callback prop "OnSend" when the Send button is clicked
 - clears input after submission
-- Listens for the "Enter" key to send messages
+- the textarea expands and shrinks dynamically to fit content
+- the textarea shrinks back to its original size after tyhe message is sent
 
-
-# FIle 'styles.css'
+# File 'styles.css'
 
 'styles.css' provides the core styling for the chatbot interface
 
 Features:
 
-- flexibility to different screen sizes
+- flexibility to different screen sizes using flex boxes
 - differentiates user and bot messages by right aligning user messages and left aligining bot messages
-- button hover effects 
+- the message bubbles resize to fit content
+- the width of the message bubbles is limited to 80% of the viewport width
+- implemented button shrink animation when clicked
+- implemented custom scrollbar
+- limited the height of the textarea to 50% of the viewport height
+- the send button is aligned to the right of the text area
+- the send button does not change size with the textarea
+- limited the messaghe 
+ 

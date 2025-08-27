@@ -13,3 +13,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </React.StrictMode>
 );
 
+// DOM is Document Object Model
+// It represents the structure of a web page as a tree of objects

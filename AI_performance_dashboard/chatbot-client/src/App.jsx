@@ -9,7 +9,6 @@ function App() {
   // Each message is an object with role (user or bot) and content (the message text)
   // setMessages => a function to update the messages state
   // Initialize with a welcome message
-  
   const [messages, setMessages] = useState([ 
     {role: "bot", content: "Hello! How can I assist you today?"},
   ]);
@@ -34,15 +33,13 @@ function App() {
   
   // renders the chatbot UI
   // Displays the chat window and input box
-  // CHatWindow recieves messages as props
-  // InputBox recieves handleSend as callback prop to send user messages
+  // Sends messages to ChatWindow as props
+  // Sends handleSend function to InputBox renamed as onSend prop
   return (
     <div className="app">
       <h2>LLM Performance Tracker</h2>
-      <div className="chat_container">
-        <ChatWindow messages={messages} />
-        <InputBox onSend={handleSend} />
-      </div>
+      <ChatWindow messages={messages} />
+      <InputBox onSend={handleSend} />
     </div>
   );
 

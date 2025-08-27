@@ -1,17 +1,24 @@
-/*  - centers page on the screen 
-    - limits the wifth to 600px
-    - uses a verticcal layout
-    - takes up full height of the viewport
+/* 
+    - sets the body to not show default scroll bars, we will implement custom scroll bars later 
+    - sets the font to sans-serif
+    - removes default margin
 */
 
 body{
-    background: linear-gradient(to bottom, #161625, #1d2e55);
+    
     overflow: hidden;
     font-family: sans-serif;
     margin: 0;
 }
 
+/* 
+    - app conatiner is the root container for the webpage 
+    - sets the app to take the full height of the viewport
+    - sets a gradient background from dark blue to lighter blue
+    - uses flexbox to layout children in a column
+*/
 .app {
+    background: linear-gradient(to bottom, #161625, #1d2e55);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -20,10 +27,9 @@ body{
 /* HTML heading
     - centers the heading
     - rem is scalable unit based on the root font size, usually 1 rem is 16px
-    - 1rem top and bottom margin
+    - 1rem margin on top and bottom and 0 margin on left and right
     - 0 margin on left and right
 */
-
 h2 {
     text-align: center;
     margin: 1rem 0;
@@ -31,22 +37,28 @@ h2 {
     
 }
 
-/*
-    - grows to fill available vertical space
-    - adds vertical scroll bar for messages
-    - ???? background color
-    - adds padding around the messages
+/* chat_window_container (chat window + scroll down button) 
+    - flex container to take up all available space excluding the input box
+    - min-height: 0 and flex: 1 to ensure it takes up all available space in the flex container
+    - position: relative to position the scroll to bottom button absolutely within this container
+                so that it stays at the bottom of the chat window, even when resized
 */
-
-
-/* chat container (chatwindow + inpiutbox) */
-.chat_container {
+.chat_window_container {
     display: flex;
     flex-direction: column;
-    flex: 1;
     min-height: 0;
+    flex: 1;
+    position: relative;
 }
 
+/* chat window (message display area) 
+    - flex: 1 to take up all available space in the chat_window_container
+    - overflow-y: auto to enable vertical scrolling when content overflows
+    - padding: 1rem for spacing around messages
+    - background: transparent to show the gradient background of the app
+    - min-height: 0 to ensure it can shrink properly within the flex container
+    - display: flex and flex-direction: column to stack messages vertically
+*/
 .chat_window {
     flex: 1;
     overflow-y: auto;
@@ -58,6 +70,13 @@ h2 {
     
 }
 
+/* Custom scrollbar styles for chat window
+    - scrollbar thumb is the draggable part of the scrollbar
+    - scrollbar track is the background part of the scrollbar
+    - border-radius to make the scrollbar rounded
+    - change thumb color on hover
+    - ** Note: These styles are not supported in Firefox, only works in Webkit based browsers (Chrome, Safari, Edge) ** 
+*/
 .chat_window::-webkit-scrollbar {
     width: 10px;
 }
@@ -76,8 +95,13 @@ h2 {
     background: #5a5aa3;
 }
 
-/*
-    - adds space between messages
+/* Message styles
+    - margin-bottom: 1rem to add space between messages
+    - word-wrap: break-word to ensure long words break to fit within the container
+    - max-width: 80% to limit the width of messages for better readability
+    - padding: 0.5rem (top and bottom) 1rem (each side) for spacing within the message bubble
+    - border-radius: 12px to make message bubbles rounded
+    - display: flex and flex-direction: column to align text vertically within the bubble
 */
 .message {
     margin-bottom: 1rem;
@@ -87,12 +111,11 @@ h2 {
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    text-align: left;  
+      
 }
 
-/*
-    - Aligns user messages to the right
-    - ??? colour for user messages
+/* user message styles
+    - flex-end: aligns user messages to the right of the chat window
 */
 .message.user {
     color: #c6daef;
@@ -100,9 +123,8 @@ h2 {
     align-self: flex-end;
 }
 
-/*
-    - Align's bot messgaes to the left
-    - ??? colour for bot messages
+/* bot message styles
+    - flex-start: align's bot messgaes to the left of the chat window
 */
 .message.bot {
     color: #c6daef;
@@ -110,74 +132,21 @@ h2 {
     align-self: flex-start;
 }
 
-
-.input-box {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    width: 100%;
-    background: transparent;
-    box-sizing: border-box;
-    
-}
-/* 
-    - Input box is a flex container, to take up all available space excluding the button
+/* Scroll to bottom button
+    - positioned absolutely at the bottom center of the chat_window_container so it stays at the bottom
+      while the chat window is scrolled
+    - z-index: 100 to ensure it appears above other elements such as chat messages
+    - left: 50% to center it horizontally
+    - width and height: 30px to make it a small circular button
+    - background: dark blue color
+    - color: white for the icon
+    - border: none to remove default button border
+    - border-radius: 50% to make it circular
+    - display: flex, align-items: center, justify-content: center to center the icon within the button
+    - cursor: pointer to indicate it's clickable
+    - transition: transform 0.1s ease for a smooth scaling effect when clicked
+    - on active (when clicked), scales down to 80% of its size for a pressed effect
 */
-.input-box textarea {
-    flex: 1;
-    min-height: 5rem;
-    max-height: 30vh;
-    padding: 0.5rem 1rem;
-    border: none;
-    margin-right: 1.5rem;
-    font-size: 1rem;
-    resize: none;
-    background-color: #e5e5ff;
-    border-radius: 15px;
-}
-
-#send {
-    color: #e5e5ff;
-
-    font-weight: 550;
-    font-size: 1.2rem;
-}
-
-/*
-    - Send button
-    - adds margin to the left of the button
-    - adds padding to the button
-    - sets font size to 1rem
-*/
-.input-box button {
-    width: 5rem;
-    max-width: 1000px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 300;
-    cursor: pointer;
-    border-radius: 15px;
-    border: none;
-    background-color: #6060a5;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s ease;
-}
-
-.input-box button:active {
-    transform:scale(0.97);
-}
-
-.chat-window-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    flex: 1;
-    position: relative;
-}
-
-
-
-/* Scroll to bottom button */
 .scroll-button {
     position: absolute;
     bottom: 1rem;;
@@ -196,6 +165,81 @@ h2 {
     transition: transform 0.1s ease;
 }
 
+/* Scale down the button when clicked */
 .scroll-button:active {
     transform: scale(0.8);
 }
+
+/* Input box container (textarea + Send button)
+    - flex container to layout the textarea and button horizontally
+    - align-items: center to vertically center the textarea and button
+    - padding: 1rem for spacing around the input box
+    - width: 100% to take up full width of the app
+    - background: transparent to show the gradient background of the app
+    - box-sizing: border-box to include padding in the total width calculation, so it doesn't overflow horizontally
+*/
+.input_box {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    background: transparent;
+    box-sizing: border-box;
+    
+}
+
+/* Textarea 
+    - text area is a flex container, to take up all available space excluding the send button
+    - the text area expands vertically to fit content, up to a max height of 30% of the viewport height, 
+      beyond which it becomes scrollable
+    - min-height: 5rem to ensure it's tall enough for user input
+    - max-height: 30vh to limit its height to 30% of the viewport height
+    - padding: 0.5rem (top and bottom) 1rem (each side) for spacing within the textarea
+    - border: none to remove default border
+    - margin-right: 1.5rem to add space between the textarea and send button
+    - resize: none to disable manual resizing by the user
+*/
+.input_box textarea {
+    flex: 1;
+    min-height: 5rem;
+    max-height: 30vh;
+    padding: 0.5rem 1rem;
+    border: none;
+    margin-right: 1.5rem;
+    font-size: 1rem;
+    resize: none;
+    background-color: #e5e5ff;
+    border-radius: 15px;
+}
+
+/* Send button styles
+    -  font weight: 550 for a bold look
+    - font size: 1.2rem for a slight emphasis
+    - width: 5rem to make it a fixed size button, doesn't expand with text
+    - padding: 0.5rem (top and bottom) 1rem (each side) for spacing within the button
+    - cursor: pointer to indicate it's clickable
+    - border-radius: 15px to make it rounded
+    - border: none to remove default button border
+    - transition: transform 0.1s ease for a smooth scaling effect when clicked
+*/
+.input_box button {
+    color: #e5e5ff;
+    font-weight: 550;
+    font-size: 1.2rem;
+    width: 5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 15px;
+    border: none;
+    background-color: #6060a5;
+    transition: transform 0.1s ease;
+}
+
+/* scale down the button when clicked */
+.input_box button:active {
+    transform:scale(0.97);
+}
+
+
+
+
