@@ -5,15 +5,11 @@ import google.generativeai as genai
 
 import os
 
-api_key = os.getenv("GEMINI_API_KEY")
-
-
-# TODO: Add user feedback
+# Define the router for Gemini API interactions
 
 router = APIRouter()
 
-# TODO: INSERT YOUR GEMINI_API_KEY HERE, make sure to sign up for a free one if not using the group one
-GEMINI_API_KEY = "AIzaSyCxAjRIrQnhytFkO2y5YXskO6Ck4zcYU0U"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key = GEMINI_API_KEY)
 model = genai.GenerativeModel(model_name='gemini-2.0-flash',
                               generation_config={"response_mime_type": "text/plain"})
