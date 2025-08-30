@@ -4,6 +4,12 @@ import InputBox from "./components/InputBox";     //a component to input user me
 import "./styles.css";
 
 
+// Access the middleware server port defined in vite.config.js
+// This port is used to make API calls to the middleware server
+const MIDDLEWARE_PORT  = __MIDDLEWARE_PORT__
+console.log("Sending API requests to middleware port:", MIDDLEWARE_PORT);
+
+
 function App() {
   // State to hold chat messages
   // messages => an array to hold chat messages
@@ -28,8 +34,10 @@ function App() {
     try {
 
       // Call the middleware server which interacts with Gemini API
-      // The middleware server is running on localhost:5000
-      const response = await fetch( "http://localhost:5000/api/chat",
+      //  *** The middleware server is running on port 5000 ***
+      // api/chat is the endpoint defined in the middleware server
+      // an endpoint is a URL where the server listens for requests
+      const response = await fetch( `http://192.168.2.128:${MIDDLEWARE_PORT}/api/chat`,
         {
           // POST request to send user message to the server
           method: "POST",
@@ -42,16 +50,20 @@ function App() {
           // Send userMessage in the request body as JSON
           body: JSON.stringify({ userMessage }), //
         });
-
+      
+      // Parse the JSON response from the server
+      // The response contains the bot's reply
+      // If the response is not in JSON format, this will throw an error
+      // which is caught in the catch block below
       const data = await response.json();
       
       // Return the response from the middleware server
       // If the reply is successful, but it is a empty string or null, return "No response."
-      return data.reply || "No response. ";
+      return data.reply || "No response from middleware. ";
     } catch (error) {
 
       // Log any errors to the console
-      console.error("Moddleware Error:", error);
+      console.error("Middleware Error:", error);
 
       // Return an error message if the fetch fails due to network issues or server errors
       return " Error: Middleware unavailable.";

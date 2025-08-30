@@ -15,6 +15,9 @@ from the Gemini API, via the middleware. The current version is designed to run 
 
 ------
 
+# Prerequisites:
+- Create a .env file containing the Middleware port to send the POST requests
+
 # File 'main.jsx'
 
 'main.jsx' is the entry point for the react application, mounting the 'App' component inside the root element
@@ -34,12 +37,16 @@ Component Structure:
 
 Features:
 
-- Intialize with a welocome message
-- Appends user and bot messages to chat history
-- Sends the user message to the middleware server which then swnds it to the LLM API
-- add a temporary message to the messages state to indicate the request has been sent
-- added a isLoading boolean state to indicate if waiting for response, to stop the user from sending new messages
-- sends the isLoading state as a prop to InputBox
+- Intialize with a welcome message
+- Append user and bot messages to chat history
+- Send the user message to the middleware server which then sends it to the LLM API
+- Add a temporary message to the messages state to indicate the request has been sent
+- Added a isLoading boolean state to indicate if waiting for response, to stop the user from sending new messages
+- If the POST request to the middleware server is unsuccessful, log the error to the console and set the default 
+  response as "Middleware Unavailable"
+- If the response is null or an empty string, set the default response as "No response from middleware"
+- After a good response is recieved update the message state with the LLM response, replacing the temporary message 
+- Send the isLoading state as a prop to InputBo
 
 # File 'ChatWindow.jsx'
 
