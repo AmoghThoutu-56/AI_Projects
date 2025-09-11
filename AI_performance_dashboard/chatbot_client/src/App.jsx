@@ -1,7 +1,8 @@
 import { useState } from 'react' // Importing React's useState hook to manage state in the component
 import ChatWindow from "./components/ChatWindow"; //a component to display chat messages
 import InputBox from "./components/InputBox";     //a component to input user messages
-import "./styles.css";
+import "./styles.css"; // contains styles for the chatbot UI
+import { v4 as uuidv4 } from "uuid"; // Importing uuid library to generate unique conversation IDs
 
 
 // Access the middleware server port defined in vite.config.js
@@ -11,6 +12,13 @@ console.log("Sending API requests to middleware port:", MIDDLEWARE_PORT);
 
 
 function App() {
+  // conversationId is a unique identifier for each chat session
+  // uuidv4 is a function that generates a random UUID
+  // UUID is a universally unique identifier, eg. "123e4567-e89b-12d3-a456-426614174000"
+  // since useState is used, the conversationId will persist across re-renders of the component
+  // a new UUID is generated when the page is refreshed
+  const [conversationId] = useState(() => uuidv4());
+
   // State to hold chat messages
   // messages => an array to hold chat messages
   // Each message is an object with role (user or bot) and content (the message text)
@@ -42,13 +50,14 @@ function App() {
           // POST request to send user message to the server
           method: "POST",
           headers: {
-
             // Specify JSON content type
             "Content-Type": "application/json", 
           },
-
+          
           // Send userMessage in the request body as JSON
-          body: JSON.stringify({ userMessage }), //
+          // Include conversationId to associate messages with the chat session
+          body: JSON.stringify({ userMessage, conversationId }),
+
         });
       
       // Parse the JSON response from the server
@@ -58,7 +67,8 @@ function App() {
       const data = await response.json();
       
       // Return the response from the middleware server
-      // If the reply is successful, but it is a empty string or null, return "No response."
+      // If the reply is successful display the response, but it is a empty string or null, 
+      // return "No response."
       return data.reply || "No response from middleware. ";
     } catch (error) {
 
