@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+accessibility_config.xml
+
+Defines how the AccessibilityService behaves.
+We listen only for window/app changes to detect when tiktok eneters the foreground.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:name="android:accessibilityEventTypes"
+          android:value="typeWindowStateChanged" />
+
+    <!-- generic feedback; haptics are not yet implmented-->
+    <item android:name="android:accessibilityFeedbackType"
+          android:value="feedbackGeneric" />
+
+    <!-- We do not inspect view hierarchy yet. Scroll detection will be added later -->
+    <item android:name="android:canRetrieveWindowContent"
+          android:value="false" />
+
+    <!-- Small delay to batch rapid window changes -->
+    <item android:name="android:notificationTimeout"
+          android:value="100" />
+          
+</accessibility-service>

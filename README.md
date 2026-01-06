@@ -212,7 +212,7 @@ Core Platform
 UI and UX:
 
 * Jetpack Compose: declarative UI for overlays, challenge screens, and rest-period countdowns 
-* Material 3: consistent theming, accessibility contrast, and dark mode support
+* Custom theme: lightweight and reliable (MATERIAL UI is not suitable for overlays)
 * Haptic Feedback APIs: tactile confirmation for correct/incorrect answers and timer completion
 * Animated visibilty and Transitions: smooth overlay entry, afilure feedback, and timer progression
 
