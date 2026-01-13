@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ScrollGuard</string>
+    <string name="accessibility_description">
+        Detects TikTok usage to display focus overlay
+    </string>
+    <string name="close_overlay">Close Overlay</string>
 </resources>

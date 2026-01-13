@@ -1,0 +1,25 @@
+<!-- 
+overlay_layout.xml
+
+Temporary overlay UI used for step 1 testing.
+This will later be replaced with a compose-based intervention UI
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="#CC000000"
+
+    android:padding="16dp"
+    android:orientation="horizontal">
+
+    <!-- 
+    Temporary close button. used to confirm overlay interaction works
+    -->
+    <Button 
+        android:id="@+id/closeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/close_overlay" />
+</LinearLayout>
